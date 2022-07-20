@@ -19,5 +19,12 @@ public class GameManager : MonoBehaviour
             
             InventoryManager.Instant.addItem(item);
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+
+            item.amount = -item.amount;
+            InventoryManager.Instant.addItem(item);
+        }
     }
 }

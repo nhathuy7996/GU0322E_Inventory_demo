@@ -35,10 +35,15 @@ public class InventoryManager : Singleton<InventoryManager>
             if (itemDatas[i].ID != item.ID)
                 continue;
 
+            if (item.amount < 0 && itemDatas[i].amount < Mathf.Abs(item.amount))
+                continue;
             itemDatas[i].amount += item.amount;
 
             if (itemDatas[i].amount <= 10)
+            {
                 is_exist = true;
+                break;
+            }
             else
             {
                 item.amount = itemDatas[i].amount - 10;
@@ -52,8 +57,8 @@ public class InventoryManager : Singleton<InventoryManager>
             SaveInventory();
             return;
         }
-
-        itemDatas.Add(item);
+        if (item.amount > 0)
+            itemDatas.Add(item);
         SaveInventory();
     }
 
@@ -109,7 +114,8 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         for (int  i= 0; i< _inventory_group.transform.childCount; i++)
         {
-            if(i > itemDatas.Count)
+          
+            if(i > itemDatas.Count || itemDatas[i].amount == 0)
             {
                 _inventory_group.GetChild(i).gameObject.SetActive(false);
                 continue;
@@ -122,7 +128,8 @@ public class InventoryManager : Singleton<InventoryManager>
             int tmp = itemDatas.Count - _inventory_group.transform.childCount;
             for (int i = itemDatas.Count - tmp; i < itemDatas.Count; i++)
             {
-
+                if (itemDatas[i].amount == 0)
+                    continue;
                 inventorySlot g = Instantiate<inventorySlot>(_inventory_slot, this.transform.position, Quaternion.identity, _inventory_group);
                 g.Init(itemDatas[i]);
             }

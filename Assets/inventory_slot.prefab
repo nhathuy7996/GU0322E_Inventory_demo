@@ -248,5 +248,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b9b2726428146b7a2e1aaff16796f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name_text: {fileID: 529498350}
-  number_text: {fileID: 7958736470926910612}
+  name_text: {fileID: 7958736470926910612}
+  number_text: {fileID: 529498350}
